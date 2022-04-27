@@ -22,7 +22,11 @@
                 <section>
                     <button type="button" class="btn btn-primary">Ajouter des données</button>
                     
+                
+                <div class="d-none">
                     <?php  include 'includes/form.inc.html'; ?>
+                </div>
+
                 </section>
             </div>
         </div>   

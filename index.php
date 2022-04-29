@@ -72,13 +72,17 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
 
                             echo ''. $sex .' '. $table['first_name'] . ' ' . $table['last_name'] .'<br> j`ai '. $age .' ans et je mesure '. $size . 'm.' ;
 
-                            $nomMajuscule = strtoupper($table['last_name']);
-                            // $table['last_name']
+                            $table['last_name'] = strtoupper($table['last_name']);
+                            $table['first_name'] = ucwords($table['first_name']);
+
+                            
                             echo '<p class="h3 text-start mt-4 fs-6"> ===> Construction d\'une phrase après MAJ du tableau </p>';
-                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $nomMajuscule . '<br> j`ai ' . $age . ' ans et je mesure ' . $size . 'm.';
+                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $size . 'm.';
+
+                            $table['size'] = str_replace('.', ',', $table['size']);
                             
                             echo '<p class="h3 text-start mt-4 fs-6"> ===> Affichage d\'une virgule à la place du point pour la taille </p>';
-                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $size . 'm.';
+                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $table['size'] . 'm.';
 
                         } elseif(isset($_GET['loop'])) {
                             echo '<p class="h2 text-center">Boucle</p>

@@ -36,16 +36,7 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     $nom = $_POST['last_name'];
                     $age = $_POST['age'];
                     $size = $_POST['size'];
-                    $sex = $_POST['sex_civility'];
-                    
-
-                    // if ($civility = $_GET['man']) {
-                    //     $civility = 'man';
-                    // } else {
-                    //     $civility = 'women';
-                    // }
-
-
+                    $sex = $_POST['sex_type'];
                     $table = array (
                         "first_name" => $prenom,
                         "last_name" => $nom,
@@ -57,45 +48,82 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     echo '<div class="alert alert-dismissible alert-success">
                         <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
 
-                } elseif(isset($_GET['debugging'])) { 
+                } else {
+                    if (isset($table)) {
+                        if(isset($_GET['debugging'])) { 
 
-                    echo '<p class="h2 text-center">Débogage</p>
-                    <p class="h3 text-start mt-4 fs-6">
-                    ===> Lecture du tableau à l\'aide de la fonction print_r()
-                    </p>';
-                    print '<pre>';
-                    print_r($table);
-                    print '</pre>';
-                    echo $_POST['civility'] ;
-                    
-                } 
-                 elseif(isset($_GET['concatenation'])) { 
+                            echo '<p class="h2 text-center">Débogage</p>
+                            <p class="h3 text-start mt-5 fs-6"> ===> Lecture du tableau à l\'aide de la fonction print_r() </p>';
+                            print '<pre>';
+                            print_r($table);
+                            print '</pre>';
+                            
+                        } elseif(isset($_GET['concatenation'])) { 
+                            echo '<p class="h2 text-center">Concaténation</p>
+                                <p class="h3 text-start mt-5 fs-6"> ===> Construction d\'une phrase avec le contenu du tableau </p>';
 
-                    echo "<p class=\"h2 text-center\">Concaténation</p>
+                            extract($table);
 
-                        <div>
-                            <p class=\"h3 text-start mt-4 fs-6\">
-                                ===> Construction d'une phrase avec le contenu du tableau
-                            </p> ";
-                                echo "$sex_civility $first_name $last_name '<br> j'ai ' $age ' et je mesure ' $size;
-                        </div>
-                        <div>
-                            <p class=\"h3 text-start mt-4 fs-6\">
-                                ===> Construction d'une phrase après MAJ du tableau
-                            </p>
-                                echo '$sex_civility $first_name $last_name '<br> j'ai ' $age ' et je mesure ' $size;
-                        </div>
-                        <div>
-                            <p class=\"h3 text-start mt-4 fs-6\">
-                                ===> Affichage d'une virgule à la place du point pour la taille 
-                            </p>
-                                echo '$sex_civility $first_name $last_name '<br> j'ai ' $age ' et je mesure ' $size;
-                        </div>";
-                    
-                    
-                } 
-                else {
-                    echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>' ; 
+                                if ($table['civility'] = 'man') {
+                                    $sex = 'Mr';
+                                } else {
+                                     $sex = 'Mme';
+                                }
+
+                            echo ''. $sex .' '. $table['first_name'] . ' ' . $table['last_name'] .'<br> j`ai '. $age .' ans et je mesure '. $size . 'm.' ;
+
+                            $nomMajuscule = strtoupper($table['last_name']);
+                            // $table['last_name']
+                            echo '<p class="h3 text-start mt-4 fs-6"> ===> Construction d\'une phrase après MAJ du tableau </p>';
+                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $nomMajuscule . '<br> j`ai ' . $age . ' ans et je mesure ' . $size . 'm.';
+                            
+                            echo '<p class="h3 text-start mt-4 fs-6"> ===> Affichage d\'une virgule à la place du point pour la taille </p>';
+                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $size . 'm.';
+
+                        } elseif(isset($_GET['loop'])) {
+                            echo '<p class="h2 text-center">Boucle</p>
+                            <p class="h3 text-start mt-5 fs-6"> ===> Lecture du tableau à l\'aide d\'une boucle foreach </p>';
+
+
+                            $i = 0;
+
+                            foreach ($table as $property => $propertyValue) {
+                                echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>' ;
+                                $i ++ ;
+                            }
+                            
+
+                            
+                        } elseif (isset($_GET['function'])) {
+                            echo '<p class="h2 text-center">fonction</p>
+                            <p class="h3 text-start mt-5 fs-6"> ===> J\'utilise ma function readTable() </p>';
+
+                            
+
+                            function readTable(){
+                                $i = 0;
+                                $table = $_SESSION['table'];
+                                foreach ($table as $property => $propertyValue) {
+                                    echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
+                                    $i++;
+                                }
+                            }
+                            readTable ();
+
+                        } elseif (isset($_GET['del'])) {
+                            unset ($_SESSION['table']);
+                            if (empty($_SESSION['table'])) {
+                                echo '<div class="alert alert-dismissible alert-success">
+                                <p class="text-center mb-1 mt-2">Données Supprimées</p></div>';
+                            }
+                        } 
+                        else {
+                            echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>';
+                        }
+                    }
+                    else {
+                        echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>' ; 
+                    }
                 }
 
                 ?>

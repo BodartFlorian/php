@@ -1,41 +1,11 @@
-<!-- <nav>
-    <button type="button" class="btn btn-outline-secondary">Home
-        </button>
-        <ul>
-            <li>Debogage</li>
-            <li>Concaténation</li>
-            <li>Boucle</li>
-            <li>Fonction</li>
-            <li>Supprimer</li>
-        </ul>
-</nav> -->
 
-<div class="container">
-    <div class="d-flex p-2 bd-highlight col-3 p-3" >
-
-                <ul class="list-group">
-                    <li class="list-group-item active" aria-current="true">An active item</li>
-                    <button type="button" class="list-group-item list-group-item-action">A second item</button>
-                    <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-                    <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                    <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item">And a fifth one</li>
-                </ul>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
+<ul class="list-group">
+  <a type="button" class="btn btn-outline-primary w-100 text-start" href="index.php?debugging">Debogage</a>
+  <a type="button" class="btn btn-outline-primary w-100 text-start" href="index.php?concatenation">Concaténation</a>
+  <a type="button" class="btn btn-outline-primary w-100 text-start">Boucle</a>
+  <a type="button" class="btn btn-outline-primary w-100 text-start">Fonction</a>
+  <a type="button" class="btn btn-outline-primary w-100 text-start">Supprimer</a>
+</ul>
 
 
 

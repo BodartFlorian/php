@@ -64,25 +64,29 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
 
                             extract($table);
 
-                                if ($table['civility'] = 'man') {
-                                    $sex = 'Mr';
-                                } else {
-                                     $sex = 'Mme';
-                                }
+                                // if ($table['civility'] = 'man') {
+                                //     $sex = 'Mr';
+                                // } else {
+                                //      $sex = 'Mme';
+                                // }
 
-                            echo ''. $sex .' '. $table['first_name'] . ' ' . $table['last_name'] .'<br> j`ai '. $age .' ans et je mesure '. $size . 'm.' ;
+
+                                    $sex = 'man' ? 'Mr' : 'Mme' ;
+
+
+                            echo '<p>'. $sex .' '. $table['first_name'] . ' ' . $table['last_name'] .'<br> j`ai '. $age .' ans et je mesure '. $size . 'm. </p>' ;
 
                             $table['last_name'] = strtoupper($table['last_name']);
                             $table['first_name'] = ucwords($table['first_name']);
 
                             
                             echo '<p class="h3 text-start mt-4 fs-6"> ===> Construction d\'une phrase après MAJ du tableau </p>';
-                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $size . 'm.';
+                            echo '<p>' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $size . 'm. </p>';
 
                             $table['size'] = str_replace('.', ',', $table['size']);
                             
                             echo '<p class="h3 text-start mt-4 fs-6"> ===> Affichage d\'une virgule à la place du point pour la taille </p>';
-                            echo '' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $table['size'] . 'm.';
+                            echo '<p>' . $sex . ' ' . $table['first_name'] . ' ' . $table['last_name'] . '<br> j`ai ' . $age . ' ans et je mesure ' . $table['size'] . 'm. </p>';
 
                         } elseif(isset($_GET['loop'])) {
                             echo '<p class="h2 text-center">Boucle</p>

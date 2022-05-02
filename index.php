@@ -29,8 +29,12 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
 
                 <?php
                 if(isset($_GET['add'])) { 
+                    echo '<p class="h1 text-center">Ajouter des données</p>';
                     include './includes/form.inc.html';
-                }            
+                } 
+                else if (isset($_GET['addmore'])) {
+                    include './includes/form2.inc.php';
+                }              
                 elseif(isset($_POST['enregistrer'])){
                     $prenom = htmlspecialchars($_POST['first_name']);
                     $nom = htmlspecialchars($_POST['last_name']);
@@ -126,11 +130,13 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             }
                         } 
                         else {
-                            echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>';
+                            echo '<a role="button" class=" btn btn-primary me-2" href="index.php?add">Ajouter des données</a>';
+                            echo '<a role="button" class=" btn btn-secondary" href="index.php?addmore">Ajouter plus de données</a>';
                         }
                     }
                     else {
-                        echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>' ; 
+                        echo '<a role="button" class=" btn btn-primary me-2" href="index.php?add">Ajouter des données</a>' ;
+                        echo '<a role="button" class=" btn btn-secondary" href="index.php?addmore">Ajouter plus de données</a>';
                     }
                 }
 

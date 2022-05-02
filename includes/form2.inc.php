@@ -59,9 +59,10 @@
                         <label for="exampleColorInput" class="form-label">Couleur préférée</label>
                         <input type="color" name="color" value="#ff0000">
                         <label class="form-label mt-2">Date de naissance</label>
-                        <input type="date" name="date" value="04/05/2022" class="form-control w-50" id="exampleInputPassword1">
+                        <!-- <input type="date" name="date" value="04/05/2022" class="form-control w-50" id="exampleInputPassword1"> -->
+                        <input type="text" name="date" value="04/05/2022" class="form-control w-50" id="exampleInputPassword1" placeholder="jj/mm/aaaa">
                     </div>
-                    <div name="JoindreUneImage" class="card col-11 mx-auto my-1">
+                    <div name="joindreUneImage" class="card col-11 mx-auto my-1">
                         <div class="form-group">
                             <label for="formFile" class="form-label">Joindre une image (jpg ou png)</label>
                             <input class="form-control" type="file" accept=".jpg, .png," id=" formFile">

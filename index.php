@@ -28,9 +28,12 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                 <section>
 
                 <?php
+                $buttonSubmit = '<div class="d-flex flex-row-reverse bd-highlight mt-4">
+                                <button name="enregistrer" type="submit" class="btn btn-primary">Enregistrer des données</button> </div>';
                 if(isset($_GET['add'])) { 
                     echo '<p class="h1 text-center">Ajouter des données</p>';
                     include './includes/form.inc.html';
+                    echo $buttonSubmit . '</form>';
                 } 
                 else if (isset($_GET['addmore'])) {
                     include './includes/form2.inc.php';
@@ -41,17 +44,49 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     $age = htmlspecialchars($_POST['age']);
                     $size = htmlspecialchars($_POST['size']);
                     $sex = htmlspecialchars($_POST['sex_type']);
+                    $html = $_POST['html'];
+                    $css = $_POST['css'];
+                    $js = $_POST['javascript'];
+                    $php = $_POST['php'];
+                    $mysql = $_POST['mysql'];
+                    $bootstrap = $_POST['bootstrap'];
+                    $symfony = $_POST['Symfony'];
+                    $react = $_POST['react'];
+                    $color = $_POST['color'];
+                    $date = $_POST['date'];
+                    $nameImg = $_post['nameOfFile'];
+                    $typeImg = $_post['way'];
+                    $tmp_nameImg = $_post['way'];
+                    $errorImg = $_post['error'];
+                    $sizeImg = $_post['sizeImg'];
                     $table = array (
-                        "first_name" => $prenom,
-                        "last_name" => $nom,
-                        "age" => $age,
-                        "size" => $size,
-                        "civility" => $sex,
+                            "first_name" => $prenom,
+                            "last_name" => $nom,
+                            "age" => $age,
+                            "size" => $size,
+                            "civility" => $sex,
+                            "html" => $html,
+                            "css" => $css,
+                            "javascript" => $js,
+                            "php" => $php,
+                            "mysql" => $mysql,
+                            "bootstrap" => $bootstrap,
+                            "symfony" => $symfony,
+                            "react" => $react,
+                            "color" => $color,
+                            "date" => $date,
+                            "img" => $img = array (
+                                        "name" => $nameImg,
+                                        "type" => $typeImg,
+                                        "tmp_name" => $tmp_nameImg,
+                                        "error" => $errorImg,
+                                        "size" => $sizeImg,
+                            )
                     );
                     $_SESSION['table'] = $table;
                     echo '<div class="alert alert-dismissible alert-success">
                         <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
-
+                    echo $table;
                 } else {
                     if (isset($table)) {
                         if(isset($_GET['debugging'])) { 

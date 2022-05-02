@@ -1,17 +1,16 @@
-<form action="index.php" method="post">
+<form action="index.php" method="post" enctype="multipart/form-data">
 
 
-
-    <div class="form-floating">
-        <input type="text" name="first_name" class="form-control mt-4" id="floatingPassword" placeholder="Prenom" required>
-        <label for="floatingPassword">Prenom</label>
+    <div class="form-group">
+        <div class="form-floating">
+            <input type="text" name="first_name" class="form-control mt-4" id="floatingPassword" placeholder="Prenom" required>
+            <label for="floatingPassword">Prenom</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" name="last_name" class="form-control mt-4" id="floatingPassword" placeholder="Nom" required>
+            <label for="floatingPassword">Nom</label>
+        </div>
     </div>
-    <div class="form-floating">
-        <input type="text" name="last_name" class="form-control mt-4" id="floatingPassword" placeholder="Nom" required>
-        <label for="floatingPassword">Nom</label>
-    </div>
-
-
 
 
     <div class="form-group">
@@ -30,21 +29,21 @@
             <span class="input-group-text">m</span>
         </div>
     </div>
+    <div class="w-100">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="sex_type" id="femme" value="women"  required>
+            <label class="form-check-label" for="inlineRadio1" >Femme</label>
+        </div>
 
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="sex_type" id="femme" value="women"  required>
-        <label class="form-check-label" for="inlineRadio1" >Femme</label>
-    </div>
-
-    <div class="form-check form-check-inline ">
-        <input class="form-check-input"  type="radio" name="sex_type" id="homme" value="man" required>
-        <label class="form-check-label" for="inlineRadio2">Homme</label>
+        <div class="form-check form-check-inline ">
+            <input class="form-check-input"  type="radio" name="sex_type" id="homme" value="man" required>
+            <label class="form-check-label" for="inlineRadio2">Homme</label>
+        </div>
     </div>
     
-    <div class="d-flex flex-row-reverse bd-highlight mt-4">
+    <!-- <div class="d-flex flex-row-reverse bd-highlight mt-4">
     <button name="enregistrer" type="submit" class="btn btn-primary">Enregistrer des données</button>
-    </div>
-
-</form>
+    </div> -->
+<!-- </form> -->
 
     

@@ -32,11 +32,11 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     include './includes/form.inc.html';
                 }            
                 elseif(isset($_POST['enregistrer'])){
-                    $prenom = $_POST['first_name'];
-                    $nom = $_POST['last_name'];
-                    $age = $_POST['age'];
-                    $size = $_POST['size'];
-                    $sex = $_POST['sex_type'];
+                    $prenom = htmlspecialchars($_POST['first_name']);
+                    $nom = htmlspecialchars($_POST['last_name']);
+                    $age = htmlspecialchars($_POST['age']);
+                    $size = htmlspecialchars($_POST['size']);
+                    $sex = htmlspecialchars($_POST['sex_type']);
                     $table = array (
                         "first_name" => $prenom,
                         "last_name" => $nom,

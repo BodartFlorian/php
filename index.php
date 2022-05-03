@@ -40,6 +40,7 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     echo print_r($table);
                 }              
                 elseif(isset($_POST['enregistrer'])){
+                    
                     $prenom = htmlspecialchars($_POST['first_name']);
                     $nom = htmlspecialchars($_POST['last_name']);
                     $age = htmlspecialchars($_POST['age']);
@@ -55,18 +56,13 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     $react = $_POST['react'];
                     $color = $_POST['color'];
                     $date = $_POST['date'];
-
-                    // $nameImg = $_post['nameOfFile'];
-                    // $typeImg = $_post['way'];
-                    // $tmp_nameImg = $_post['way'];
-                    // $errorImg = $_post['error'];
-                    // $sizeImg = $_post['sizeImg'];
                     $nameImg = $_FILES['userfile']['name'];
                     $typeImg = $_FILES['userfile']['type'];
                     $tmp_nameImg = $_FILES['userfile']['tmp_name'];
                     $errorImg = $_FILES['userfile']['error'];
                     $sizeImg =  $_FILES['userfile']['size'];
-                    $table = array (
+
+                    $tableFull = array (
                             "first_name" => $prenom,
                             "last_name" => $nom,
                             "age" => $age,
@@ -90,10 +86,15 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                                         "size" => $sizeImg,
                             )
                     );
+
+                    if (isset($_FILES['userfile'])) {
+                        move_uploaded_file($tmp_nameImg, './uploaded/'.$nameImg);
+                    }
+
+                    $table = array_filter($tableFull);
                     $_SESSION['table'] = $table;
                     echo '<div class="alert alert-dismissible alert-success">
                         <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
-                    echo $table;
                 } else {
                     if (isset($table)) {
                         if(isset($_GET['debugging'])) { 
@@ -138,9 +139,7 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             echo '<p class="h2 text-center">Boucle</p>
                             <p class="h3 text-start mt-5 fs-6"> ===> Lecture du tableau à l\'aide d\'une boucle foreach </p>';
 
-
                             $i = 0;
-
                             foreach ($table as $property => $propertyValue) {
                                 echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>' ;
                                 $i ++ ;
@@ -153,13 +152,28 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             <p class="h3 text-start mt-5 fs-6"> ===> J\'utilise ma function readTable() </p>';
 
                             
+                            // function readTable(){
+                            //     $i = 0;
+                            //     $table = $_SESSION['table'];
+                            //     foreach ($table as $property => $propertyValue) {
+                            //         echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
+                            //         $i++;
+                            //     }
+                            // }
+                            // readTable ();
+
 
                             function readTable(){
                                 $i = 0;
                                 $table = $_SESSION['table'];
                                 foreach ($table as $property => $propertyValue) {
-                                    echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
-                                    $i++;
+                                    if ($property != 'img') {
+                                        echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
+                                        $i++;
+                                    }else {
+                                        echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient <img src="/uploaded/' .$table['img'].'" alt="imgUploaded" class="w-100">';
+                                        $i++;
+                                    }
                                 }
                             }
                             readTable ();

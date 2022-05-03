@@ -37,6 +37,7 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                 } 
                 else if (isset($_GET['addmore'])) {
                     include './includes/form2.inc.php';
+                    echo print_r($table);
                 }              
                 elseif(isset($_POST['enregistrer'])){
                     $prenom = htmlspecialchars($_POST['first_name']);
@@ -54,11 +55,17 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     $react = $_POST['react'];
                     $color = $_POST['color'];
                     $date = $_POST['date'];
-                    $nameImg = $_post['nameOfFile'];
-                    $typeImg = $_post['way'];
-                    $tmp_nameImg = $_post['way'];
-                    $errorImg = $_post['error'];
-                    $sizeImg = $_post['sizeImg'];
+
+                    // $nameImg = $_post['nameOfFile'];
+                    // $typeImg = $_post['way'];
+                    // $tmp_nameImg = $_post['way'];
+                    // $errorImg = $_post['error'];
+                    // $sizeImg = $_post['sizeImg'];
+                    $nameImg = $_FILES['userfile']['name'];
+                    $typeImg = $_FILES['userfile']['type'];
+                    $tmp_nameImg = $_FILES['userfile']['tmp_name'];
+                    $errorImg = $_FILES['userfile']['error'];
+                    $sizeImg =  $_FILES['userfile']['size'];
                     $table = array (
                             "first_name" => $prenom,
                             "last_name" => $nom,

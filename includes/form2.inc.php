@@ -65,8 +65,8 @@
         <div name="joindreUneImage" class="card col-11 mx-auto my-1">
             <div class="form-group">
                 <label for="userfile" class="form-label">Joindre une image (jpg ou png)</label>
-                <!-- <input type="hidden" name="MAX_FILE_SIZE" value="30000" /> -->
-                <input class="form-control" type="file" name="userfile" accept=".jpg, .png," id=" formFile">
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
+                <input class="form-control" type="file" name="userfile" id=" formFile">
             </div>
         </div>
         <div class="d-flex flex-row-reverse bd-highlight mt-4">

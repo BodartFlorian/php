@@ -55,7 +55,7 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                     $symfony = $_POST['Symfony'];
                     $react = $_POST['react'];
                     $color = $_POST['color'];
-                    $date = $_POST['date'];
+                    $dob = $_POST['date'];
                     $nameImg = $_FILES['userfile']['name'];
                     $typeImg = $_FILES['userfile']['type'];
                     $tmp_nameImg = $_FILES['userfile']['tmp_name'];
@@ -77,7 +77,7 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             "symfony" => $symfony,
                             "react" => $react,
                             "color" => $color,
-                            "date" => $date,
+                            "dob" => $dob,
                             "img" => $img = array (
                                         "name" => $nameImg,
                                         "type" => $typeImg,
@@ -87,14 +87,35 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             )
                     );
 
-                    if (isset($_FILES['userfile'])) {
-                        move_uploaded_file($tmp_nameImg, './uploaded/'.$nameImg);
+                    if (empty($errorImg)) {
+                        $table = array_filter($tableFull);
+                        $_SESSION['table'] = $table;
+                        echo '<div class="alert alert-dismissible alert-success">
+                            <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
+                    } else {
+                        $tabExtension = explode('.', $nameImg);
+                        $extension = strtolower(end($tabExtension));
+                        $extensionsAutorisees = ['jpg', 'png', 'jpeg'];
+
+                        if ($errorImg == 4) {
+                            echo '<p class="alert-danger text-center pb-3 pt-4">Aucun fichier n\'a été téléchargé</p>';
+                        } elseif(in_array($extension,$extensionsAutorisees) === false) {
+                            echo '<p class="alert-danger text-center pb-3 pt-4">Extension "' .$extension . '" non prise en charge';
+                        } elseif($errorImg == 2) {
+                            echo '<p class="alert-danger text-center pb-3 pt-4">La taille de l\'image doit être inférieure à 2Mo</p>'; 
+                        } elseif($errorImg == 1 || $errorImg == 3 || $errorImg > 4) {
+                            echo '<p class="alert-danger text-center pb-3 pt-4">error: '.$errorImg.'</p>'; 
+                        }elseif ($errorImg == 0) {
+                            move_uploaded_file($tmp_nameImg, './uploaded/'.$nameImg);
+                            $table = array_filter($tableFull);
+                            $_SESSION['table'] = $table;
+                            echo '<div class="alert alert-dismissible alert-success">
+                                <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
+                        } else {
+                            echo 'findeif';
+                        }
                     }
 
-                    $table = array_filter($tableFull);
-                    $_SESSION['table'] = $table;
-                    echo '<div class="alert alert-dismissible alert-success">
-                        <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
                 } else {
                     if (isset($table)) {
                         if(isset($_GET['debugging'])) { 
@@ -166,12 +187,15 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             function readTable(){
                                 $i = 0;
                                 $table = $_SESSION['table'];
+                                // $dir = opendir("./tmp/php");
+                                // $dir = opendir($table['tmp_name']);
+                                // $dir = opendir("./uploaded/");
                                 foreach ($table as $property => $propertyValue) {
                                     if ($property != 'img') {
                                         echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
                                         $i++;
                                     }else {
-                                        echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient <img src="/uploaded/' .$table['img'].'" alt="imgUploaded" class="w-100">';
+                                        echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient <img src="'.'" alt="imgUploaded" class="w-100">';
                                         $i++;
                                     }
                                 }

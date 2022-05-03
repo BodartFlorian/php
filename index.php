@@ -87,6 +87,9 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             )
                     );
 
+                    if(isset($_FILES['userfile'])) {
+                        move_uploaded_file($tmp_nameImg, './uploaded/' . $nameImg);
+                    }
                     if (empty($errorImg)) {
                         $table = array_filter($tableFull);
                         $_SESSION['table'] = $table;
@@ -106,13 +109,10 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                         } elseif($errorImg == 1 || $errorImg == 3 || $errorImg > 4) {
                             echo '<p class="alert-danger text-center pb-3 pt-4">error: '.$errorImg.'</p>'; 
                         }elseif ($errorImg == 0) {
-                            move_uploaded_file($tmp_nameImg, './uploaded/'.$nameImg);
                             $table = array_filter($tableFull);
                             $_SESSION['table'] = $table;
                             echo '<div class="alert alert-dismissible alert-success">
                                 <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
-                        } else {
-                            echo 'findeif';
                         }
                     }
 
@@ -162,8 +162,16 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
 
                             $i = 0;
                             foreach ($table as $property => $propertyValue) {
-                                echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>' ;
-                                $i ++ ;
+                                if ($property != 'img') {
+                                    echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
+                                    $i++;
+                                } elseif (($table['img']['name'] == true && $property == 'img')) {
+                                    echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient <br>';
+                                    echo "<img class='w-100' src='./uploaded/" . $table['img']['name'] . "'>";
+                                    $i++;
+                                } else {
+                                    break;
+                                }
                             }
                             
 
@@ -172,36 +180,23 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             echo '<p class="h2 text-center">fonction</p>
                             <p class="h3 text-start mt-5 fs-6"> ===> J\'utilise ma function readTable() </p>';
 
-                            
-                            // function readTable(){
-                            //     $i = 0;
-                            //     $table = $_SESSION['table'];
-                            //     foreach ($table as $property => $propertyValue) {
-                            //         echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
-                            //         $i++;
-                            //     }
-                            // }
-                            // readTable ();
-
-
                             function readTable(){
                                 $i = 0;
                                 $table = $_SESSION['table'];
-                                // $dir = opendir("./tmp/php");
-                                // $dir = opendir($table['tmp_name']);
-                                // $dir = opendir("./uploaded/");
                                 foreach ($table as $property => $propertyValue) {
                                     if ($property != 'img') {
                                         echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient "' . $propertyValue . '"<br>';
                                         $i++;
-                                    }else {
-                                        echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient <img src="'.'" alt="imgUploaded" class="w-100">';
+                                    } elseif (($table['img']['name'] == true && $property == 'img')) {
+                                        echo 'à la ligne n°' . $i . ' correspond la clé "' . $property . '" et contient <br>';
+                                        echo "<img class='w-100' src='./uploaded/" . $table['img']['name'] . "'>";
                                         $i++;
+                                    } else {
+                                        break;
                                     }
                                 }
                             }
                             readTable ();
-
                         } elseif (isset($_GET['del'])) {
                             unset ($_SESSION['table']);
                             if (empty($_SESSION['table'])) {
@@ -209,10 +204,10 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                                 <p class="text-center mb-1 mt-2">Données Supprimées</p></div>';
                             }
                         } 
-                        else {
-                            echo '<a role="button" class=" btn btn-primary me-2" href="index.php?add">Ajouter des données</a>';
-                            echo '<a role="button" class=" btn btn-secondary" href="index.php?addmore">Ajouter plus de données</a>';
-                        }
+                            else {
+                                echo '<a role="button" class=" btn btn-primary me-2" href="index.php?add">Ajouter des données</a>';
+                                echo '<a role="button" class=" btn btn-secondary" href="index.php?addmore">Ajouter plus de données</a>';
+                            }
                     }
                     else {
                         echo '<a role="button" class=" btn btn-primary me-2" href="index.php?add">Ajouter des données</a>' ;

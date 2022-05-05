@@ -87,32 +87,36 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             )
                     );
 
-                    if(isset($_FILES['userfile'])) {
-                        move_uploaded_file($tmp_nameImg, './uploaded/' . $nameImg);
-                    }
-                    if (empty($errorImg)) {
-                        $table = array_filter($tableFull);
-                        $_SESSION['table'] = $table;
+                    $table = array_filter($tableFull);
+                    $_SESSION['table'] = $table;
+
+                    if (empty($_FILES['userfile'])) {
+                        unset ($_SESSION['table']['img']);
                         echo '<div class="alert alert-dismissible alert-success">
                             <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
                     } else {
+                        move_uploaded_file($tmp_nameImg, './uploaded/' . $nameImg);
                         $tabExtension = explode('.', $nameImg);
                         $extension = strtolower(end($tabExtension));
                         $extensionsAutorisees = ['jpg', 'png', 'jpeg'];
 
                         if ($errorImg == 4) {
                             echo '<p class="alert-danger text-center pb-3 pt-4">Aucun fichier n\'a été téléchargé</p>';
+                            unset($_SESSION['table']);
                         } elseif(in_array($extension,$extensionsAutorisees) === false) {
                             echo '<p class="alert-danger text-center pb-3 pt-4">Extension "' .$extension . '" non prise en charge';
+                            unset($_SESSION['table']);
                         } elseif($errorImg == 2) {
-                            echo '<p class="alert-danger text-center pb-3 pt-4">La taille de l\'image doit être inférieure à 2Mo</p>'; 
+                            echo '<p class="alert-danger text-center pb-3 pt-4">La taille de l\'image doit être inférieure à 2Mo</p>';
+                            unset($_SESSION['table']);
                         } elseif($errorImg == 1 || $errorImg == 3 || $errorImg > 4) {
-                            echo '<p class="alert-danger text-center pb-3 pt-4">error: '.$errorImg.'</p>'; 
+                            echo '<p class="alert-danger text-center pb-3 pt-4">error: '.$errorImg.'</p>';
+                            unset($_SESSION['table']);
                         }elseif ($errorImg == 0) {
                             $table = array_filter($tableFull);
                             $_SESSION['table'] = $table;
                             echo '<div class="alert alert-dismissible alert-success">
-                                <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';
+                                <p class="text-center mb-1 mt-2">Données Sauvegardées</p></div>';   
                         }
                     }
 

@@ -203,6 +203,8 @@ if(isset($_SESSION['table'])) $table = $_SESSION['table'];
                             readTable ();
                         } elseif (isset($_GET['del'])) {
                             unset ($_SESSION['table']);
+                            $delFile = "./uploaded/".$table['img']['name'];
+                                unlink($delFile);
                             if (empty($_SESSION['table'])) {
                                 echo '<div class="alert alert-dismissible alert-success">
                                 <p class="text-center mb-1 mt-2">Données Supprimées</p></div>';
